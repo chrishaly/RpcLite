@@ -12,6 +12,30 @@
     
     RpcLite支持Full .Net Framework、.Net Core、Mono，在正文中会介绍Full .Net Framework及.Net Core中的使用方式。
 
+## 自宿主服务示例
+
+	.Net Core下创建自宿主服务只需要几行代码。
+	添加依赖RpcLite.Server.Kestrel
+	https://www.nuget.org/packages/RpcLite.Server.Kestrel/
+
+```
+public void Test()
+{
+	var host = new HostBuilder()
+		.UseConfig(config => config.UseService<Service1>("api/service/"))
+		.Build();
+	host.Run();
+}
+
+public class Service1
+{
+	public string GetDateTime()
+	{
+		return DateTime.Now.ToString(CultureInfo.InvariantCulture);
+	}
+}
+```
+
 ## 架构描述
 
     RpcLite包括服务端和客户端。
