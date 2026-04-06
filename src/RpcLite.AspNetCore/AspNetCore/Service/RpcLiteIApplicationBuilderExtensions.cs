@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Net.Http.Headers;
@@ -106,7 +107,8 @@ td, th{
 			const string nullOperation = "_DefaultNullOperationName";
 			foreach (var service in services)
 			{
-				routers.MapRoute(service.Path + $"{{RpcOperationName={nullOperation}}}/{{*RpcPathInfo}}", context =>
+				string template = service.Path + $"{{RpcOperationName={nullOperation}}}/{{*RpcPathInfo}}";
+				routers.MapRoute(template, context =>
 				{
 					context.Response.Headers[HeaderNames.Connection] = "Keep-Alive";
 
@@ -129,7 +131,8 @@ td, th{
 						}
 					};
 
-					return appHost.ProcessAsync(serverContext);
+					Task task = appHost.ProcessAsync(serverContext);
+					return task;
 				});
 			}
 		}

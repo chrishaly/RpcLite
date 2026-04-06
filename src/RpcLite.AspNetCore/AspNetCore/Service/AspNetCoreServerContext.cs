@@ -1,4 +1,4 @@
-﻿#if NETCORE
+﻿//#if NETCORE
 
 using System;
 using System.IO;
@@ -108,4 +108,4 @@ namespace RpcLite.AspNetCore.Service
 	}
 }
 
-#endif
+//#endif

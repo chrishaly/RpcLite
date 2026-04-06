@@ -46,7 +46,7 @@ namespace RpcLite.Config
 		/// <summary>
 		/// enable meta operation or not
 		/// </summary>
-		public bool EnableMeta { get; set; }
+		public bool? EnableMeta { get; set; }
 
 		/// <summary>
 		/// 

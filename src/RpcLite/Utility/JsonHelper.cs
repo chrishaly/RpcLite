@@ -68,7 +68,7 @@ namespace RpcLite.Utility
 		//	return jsonSerializer;
 		//});
 #else
-		private static readonly JsonSerializer DefaultJsonSerializer = new JsonSerializer();
+		//private static readonly JsonSerializer DefaultJsonSerializer = new JsonSerializer();
 #endif
 
 

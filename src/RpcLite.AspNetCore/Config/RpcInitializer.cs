@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using RpcLite.AspNetCore.Service;
-using CoreConfig = Microsoft.Extensions.Configuration;
 
 namespace RpcLite.Config
 {
@@ -37,7 +37,7 @@ namespace RpcLite.Config
 		/// initialize from configuration
 		/// </summary>
 		/// <param name="config"></param>
-		public static void Initialize(CoreConfig.IConfiguration config)
+		public static void Initialize(IConfiguration config)
 		{
 			//var rpcConfig = RpcConfigHelper.GetConfig(new CoreConfigurationSection(config));
 			var rpcConfig = RpcConfigHelper.GetConfig(config);
@@ -137,7 +137,11 @@ namespace RpcLite.Config
 			foreach (var path in serviceServices)
 			{
 				routers.MapRoute(path.Path + "{*RpcLiteServicePath}",
-					context => RpcManager.ProcessAsync(new AspNetCoreServerContext(context)));
+					context =>
+					{
+						Task task = RpcManager.ProcessAsync(new AspNetCoreServerContext(context));
+						return task;
+					});
 			}
 		}
 		#endregion
